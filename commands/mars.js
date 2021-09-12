@@ -8,8 +8,12 @@ module.exports = {
         .setName('mars')
         .setDescription('Replies with latest Mars pics from Curiosity!'),
     async execute(interaction) {
+                function getcolor() {
+                    let colors = ['0x5865F2', '0x57F287', '0xFEE75C', '0xEB459E', '0xED4245', '0xFFFFFF', '0x000000']
+                    return colors[Math.floor(Math.random() * colors.length)];
+          }
         let replyembed = {
-            color: 0x0099ff,
+            color: getcolor(),
             author: {
                 name: `${interaction.user.username}`,
                 icon_url: `${interaction.user.displayAvatarURL({ dynamic: true })}`,
@@ -42,7 +46,7 @@ module.exports = {
               if (data.latest_photos.length != 0) {
                 for (let i of data.latest_photos) {
                     const botembed = {
-                        color: 0x0099ff,
+                        color: getcolor(),
                         author: {
                             name: `${interaction.user.username}`,
                             icon_url: `${interaction.user.displayAvatarURL({ dynamic: true })}`,

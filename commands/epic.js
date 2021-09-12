@@ -6,10 +6,15 @@ const fetch = require("node-fetch")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('epic')
-        .setDescription('Replies with epic!'),
+        .setDescription('Replies with epic!')
+	.addStringOption(option => option.setName('type').setDescription('enhanced or natural').setRequired(true)), // will add a select menu https://discordjs.guide/interactions/select-menus.html
     async execute(interaction) {
 		await interaction.reply('Sending...')
-        let type = 'enhanced';
+	  function getcolor() {
+            let colors = ['0x5865F2', '0x57F287', '0xFEE75C', '0xEB459E', '0xED4245', '0xFFFFFF', '0x000000']
+            return colors[Math.floor(Math.random() * colors.length)];
+          }
+        let type = interaction.options.getString('type');
         fetch(`https://epic.gsfc.nasa.gov/api/${type}`)
             .then(res => res.json())
             .then(data => {
@@ -21,7 +26,7 @@ module.exports = {
                     let img = `https://epic.gsfc.nasa.gov/archive/${type}/${time}/png/${i.image}.png`
                     let tim = i.date
                     const botembed = {
-                        color: 0x0099ff,
+                        color: getcolor(),
                         author: {
                             name: `${interaction.user.username}`,
                             icon_url: `${interaction.user.displayAvatarURL({ dynamic: true })}`,

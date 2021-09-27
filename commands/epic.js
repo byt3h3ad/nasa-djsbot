@@ -7,9 +7,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('epic')
         .setDescription('Replies with epic!')
-	.addStringOption(option => option.setName('type').setDescription('enhanced or natural').setRequired(true)), // will add a select menu https://discordjs.guide/interactions/select-menus.html
+	.addStringOption(option => option.setName('type').setRequired(true).addChoice('Enhanced', 'enhanced').addChoice('Natural', 'natural')),
     async execute(interaction) {
-		await interaction.reply('Sending...')
+	  await interaction.reply('Sending...')
 	  function getcolor() {
             let colors = ['0x5865F2', '0x57F287', '0xFEE75C', '0xEB459E', '0xED4245', '0xFFFFFF', '0x000000']
             return colors[Math.floor(Math.random() * colors.length)];
